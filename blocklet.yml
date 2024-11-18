@@ -1,0 +1,47 @@
+title: my-blocklet
+description: A Blocklet DAPP blocklet
+keywords:
+  - blocklet
+  - react
+group: dapp
+did: z2qa78P1weeqEp9Ru2Cg3c8qtLCo2L65x5tjP
+main: api/dist/index.js
+author:
+  name: aaaaaajie
+  email: m18210870360@163.com
+repository:
+  type: git
+  url: git+https://github.com/blocklet/create-blocklet.git
+specVersion: 1.2.8
+version: 0.1.0
+logo: logo.png
+files:
+  - dist
+  - logo.png
+  - screenshots
+interfaces:
+  - type: web
+    name: publicUrl
+    path: /
+    prefix: "*"
+    port: BLOCKLET_PORT
+    protocol: http
+community: ""
+documentation: ""
+homepage: ""
+license: ""
+payment:
+  price: []
+  share: []
+timeout:
+  start: 60
+requirements:
+  server: ">=1.16.28"
+  os: "*"
+  cpu: "*"
+scripts:
+  dev: npm run start
+environments: []
+capabilities: {}
+screenshots: []
+components: []
