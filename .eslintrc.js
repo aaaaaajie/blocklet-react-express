@@ -7,6 +7,8 @@ module.exports = {
     project: [join(__dirname, 'tsconfig.eslint.json'), join(__dirname, 'tsconfig.json')],
   },
   rules: {
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-extraneous-dependencies': 0,
+    'import/prefer-default-export': 0,
+    'no-console': 'off',
   },
 };

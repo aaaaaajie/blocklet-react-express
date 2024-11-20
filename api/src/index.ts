@@ -1,15 +1,14 @@
-import 'express-async-errors';
-
-import path from 'path';
-
+import fallback from '@blocklet/sdk/lib/middlewares/fallback';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv-flow';
-import express, { ErrorRequestHandler } from 'express';
-import fallback from '@blocklet/sdk/lib/middlewares/fallback';
+import express from 'express';
+import 'express-async-errors';
+import path from 'path';
 
+import DBClient from './libs/db';
 import logger from './libs/logger';
-import routes from './routes';
+import { userRouter } from './routes';
 
 dotenv.config();
 
@@ -24,7 +23,7 @@ app.use(express.urlencoded({ extended: true, limit: '1 mb' }));
 app.use(cors());
 
 const router = express.Router();
-router.use('/api', routes);
+router.use('/api', userRouter);
 app.use(router);
 
 const isProduction = process.env.NODE_ENV === 'production' || process.env.ABT_NODE_SERVICE_ENV === 'production';
@@ -34,15 +33,13 @@ if (isProduction) {
   app.use(express.static(staticDir, { maxAge: '30d', index: false }));
   app.use(fallback('index.html', { root: staticDir }));
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  app.use(<ErrorRequestHandler>((err, _req, res, _next) => {
-    logger.error(err.stack);
+  app.use((_, res) => {
     res.status(500).send('Something broke!');
-  }));
+  });
 }
 
 const port = parseInt(process.env.BLOCKLET_PORT!, 10);
-
+DBClient.init();
 export const server = app.listen(port, (err?: any) => {
   if (err) throw err;
   logger.info(`> ${name} v${version} ready on ${port}`);
