@@ -33,7 +33,7 @@ function Home() {
         });
       }
     });
-    return userInfo;
+    return menuItems;
   };
 
   useEffect(() => {
@@ -55,7 +55,8 @@ function Home() {
       .catch((error) => {
         message.error(error.message);
       });
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const navigate = useNavigate();
 

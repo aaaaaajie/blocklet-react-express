@@ -46,7 +46,8 @@ export default function EditProfile() {
         form.setFieldsValue(result.data);
       })
       .catch();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Card style={{ width: 300 }}>
